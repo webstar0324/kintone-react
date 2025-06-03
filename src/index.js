@@ -1,17 +1,37 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import { createRoot } from 'react-dom/client';
+import './index.css'; // optional: your button styles
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-);
+const CUSTOM_SPACE_ID = 'custom_space';
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+const BUTTONS = [
+  { label: '取得', type: 'blue', handler: () => alert('取得 clicked') },
+  { label: 'クリア', type: 'blue', handler: () => alert('クリア clicked') }
+];
+
+function ButtonGroup() {
+  return (
+    <div>
+      {BUTTONS.map(({ label, type, handler }, index) => (
+        <button
+          key={index}
+          className={`custom-btn ${type}`}
+          onClick={handler}
+          style={{ marginRight: '8px' }}
+        >
+          {label}
+        </button>
+      ))}
+    </div>
+  );
+}
+
+kintone.events.on('app.record.create.show', (event) => {
+  const space = kintone.app.record.getSpaceElement(CUSTOM_SPACE_ID);
+  if (space) {
+    space.innerHTML = ''; // Clear the space
+    const root = createRoot(space);
+    root.render(<ButtonGroup />);
+  }
+  return event;
+});

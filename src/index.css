@@ -11,3 +11,19 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.custom-btn {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  cursor: pointer;
+}
+
+.custom-btn.blue {
+  background-color: #3498db;
+}
+
+.custom-btn.blue:hover {
+  background-color: #2980b9;
+}

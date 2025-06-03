@@ -3,55 +3,24 @@ const path = require('path');
 module.exports = {
   entry: './src/index.js',
   output: {
-    path: __dirname + '/',
-    filename: 'dist/bundle.js'
-  },
-  resolve: {
-    alias: {
-      modules: path.join(__dirname, 'node_modules'),
-      common: path.join(__dirname, 'common')
-    },
-    extensions: ['.js', '.jsx']
+    filename: 'bundle.js',
+    path: path.resolve(__dirname, 'dist'),
   },
   module: {
     rules: [
       {
-        test: /\.css$/,
-        use: [
-          { loader: 'style-loader' },
-          { loader: 'css-loader' }
-        ]
-      },
-      {
-        test: /\.svg$/,
-        use: [
-            'file-loader'
-        ]
-      },
-      {
-        test: /\.js$|jsx/,
+        test: /\.jsx?$/,
         exclude: /node_modules/,
-        use: {
-          loader: 'babel-loader',
-          options: {
-            presets: [
-              '@babel/preset-react',
-              [
-                '@babel/preset-env',
-                {
-                  targets: {
-                    browsers: [
-                      'last 4 versions'
-                    ]
-                  },
-                  useBuiltIns: 'usage',
-                  corejs: 3
-                }
-              ]
-            ]
-          }
-        }
+        use: 'babel-loader'
       },
-    ],
+      {
+        test: /\.css$/i,
+        use: ['style-loader', 'css-loader'],
+      }
+    ]
   },
+  resolve: {
+    extensions: ['.js', '.jsx']
+  },
+  mode: 'production'
 };
