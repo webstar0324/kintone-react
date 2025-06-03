@@ -4,5 +4,9 @@
   "desktop": {
     "js": ["dist/bundle.js"],
     "css": []
+  },
+  "mobile": {
+    "js": [],
+    "css": []
   }
 }
