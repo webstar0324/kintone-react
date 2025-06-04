@@ -1,23 +1,25 @@
-import React from 'react';
+import React from 'react'; 
+import ReactDOM from 'react-dom'; 
+import './index.css';
+import App from './App';
+import reportWebVitals from './reportWebVitals';
 
-const BUTTONS = [
-  { label: '取得', type: 'blue', handler: () => alert('取得 clicked') },
-  { label: 'クリア', type: 'blue', handler: () => alert('クリア clicked') },
-];
-
-export default function App() {
-  return (
-    <div>
-      {BUTTONS.map(({ label, type, handler }, index) => (
-        <button
-          key={index}
-          className={`custom-btn ${type}`}
-          onClick={handler}
-          style={{ marginRight: '8px' }}
-        >
-          {label}
-        </button>
-      ))}
-    </div>
-  );
-}
+(() => {
+  kintone.events.on('app.record.index.show', (event) => {
+    console.log('loaded');
+    const customView = Number(5519924);
+    let rootElement = document.getElementById('root');
+    if (!rootElement) {
+      rootElement = document.createElement('div');
+      rootElement.id = 'root';
+      document.body.appendChild(rootElement);
+    }
+    ReactDOM.render(
+      <React.StrictMode>
+        <App/>
+      </React.StrictMode>,
+      rootElement
+    );
+    return event;
+  });
+})();
